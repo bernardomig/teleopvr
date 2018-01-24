@@ -6,7 +6,6 @@ from sensor_msgs.msg import Image
 
 from cv_bridge import CvBridge
 
-from geometry_msgs.msg import Pose2D
 
 from BackgroundSegmentator import BackgroundSegmentator
 
@@ -15,8 +14,13 @@ from ObjectTracker import ObjectTracker
 
 import cv2
 
+from geometry_msgs.msg import PointStamped
+
 import numpy as np
 from matplotlib.cm import flag as cm
+
+points_pub = rospy.Publisher(
+    'object_recognition/points_rgb', PointStamped, queue_size=100)
 
 
 class ObjectDetectorNode:
@@ -48,12 +52,25 @@ class ObjectDetectorNode:
 
         self.objectTracker.update()
 
+        self.publish_output_img(img)
+
+    def publish_output_img(self, img):
         for i, detectedObject in enumerate(self.objectTracker.objects):
 
             if detectedObject.lifetime > 50:
                 continue
 
             cx, cy = detectedObject.centroid
+
+            pt = PointStamped()
+            pt.header.frame_id = 'camera_rgb_optical_frame'
+            pt.header.seq = i
+            pt.header.stamp = rospy.get_rostime()
+            pt.point.x = cx
+            pt.point.y = cy
+            pt.point.z = 0
+
+            points_pub.publish(pt)
 
             is_circle = detectedObject.detectedObject.is_circle
 
@@ -88,6 +105,7 @@ if __name__ == '__main__':
 
     rospy.init_node('object_detector', anonymous=True)
 
-    ObjectDetectorNode('camera/rgb/image_raw', 'segmented_image')
+    ObjectDetectorNode('camera/rgb/image_raw',
+                       '/object_recognition/segmented_image')
 
     rospy.spin()

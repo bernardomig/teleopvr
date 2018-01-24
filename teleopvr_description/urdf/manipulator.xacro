@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<robot name="teleopvr" 
+    xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+    <xacro:include filename="$(find fanuc_lrmate200id_support)/urdf/lrmate200id_macro.xacro"/>
+    <xacro:include filename="$(find hector_sensors_description)/urdf/kinect_camera.urdf.xacro" />
+    <link name="world"></link>
+    <xacro:fanuc_lrmate200id prefix=""></xacro:fanuc_lrmate200id>
+    <link name="gripper">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://teleopvr_description/meshes/tool.dae"/>
+            </geometry>
+            <xacro:material_fanuc_black />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://teleopvr_description/meshes/tool.dae"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="tool0-gripper" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="tool0" />
+        <child link="gripper" />
+    </joint>
+    <xacro:kinect_camera name="camera" parent="world">
+        <origin rpy="1.71 1.71 1.71" xyz="0 0 1"/>
+    </xacro:kinect_camera>
+    <joint name="world-manipulator" type="fixed">
+        <origin rpy="0 0 0" xyz="-1.0 0 0" />
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
+    <link name="table">
+        <visual>
+            <origin rpy="0 0 0" xyz="-0.5 0 -0.01" />
+            <geometry>
+                <box size="1 1 -0.01" />
+            </geometry>
+            <material name="table">
+                <color rgba="0 0.6 0.8 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint name="world-table" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <parent link="world" />
+        <child link="table" />
+    </joint>
+</robot>
