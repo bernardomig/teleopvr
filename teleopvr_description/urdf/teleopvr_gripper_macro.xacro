@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<robot 
+    xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="teleopvr_gripper" params="prefix">
+        <link name="${prefix}base_link" />
+        <link name="${prefix}tool_tip">
+            <visual>
+                <origin xyz="-0.2 0 0" rpy="0 ${pi/2} 0"/>
+                <geometry>
+                    <mesh filename="package://teleopvr_description/meshes/tool.dae"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="-0.2 0 0" rpy="0 ${pi/2} 0"/>
+                <geometry>
+                    <mesh filename="package://teleopvr_description/meshes/tool.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        <joint name="${prefix}base_link-${prefix}tool_tip" type="fixed">
+            <origin xyz="0.2 0 0" rpy="0 0 0" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}tool_tip" />
+        </joint>
+    </xacro:macro>
+</robot>
