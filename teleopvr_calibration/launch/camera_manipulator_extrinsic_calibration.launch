@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- launch the kinetic -->
+    <include file="$(find teleopvr_bringup)/launch/camera.launch"/>
+    <!-- launch the aruco detection -->
+    <include file="$(find aruco_hand_eye)/launch/aruco_hand_eye.launch">
+        <!-- configure camera -->
+        <arg name="camera" value="/camera/rgb" />
+        <arg name="image" value="image_raw" />
+        <!-- filter the marker id -->
+        <arg name="markerid" value="10" />
+        <!-- tf config -->
+        <arg name="publish_tf" value="true" />
+        <arg name="camera_frame" value="/camera_rgb_optical_frame" />
+        <arg name="camera_parent_frame" value="robot_base_link" />
+        <arg name="marker_parent_frame" value="eef_tool_tip" />
+    </include>
+</launch>

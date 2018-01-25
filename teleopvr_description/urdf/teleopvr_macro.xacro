@@ -10,7 +10,7 @@
     <xacro:macro name="teleopvr" params="prefix">
         <xacro:teleopvr_manipulator prefix="${prefix}" />
         <xacro:kinect_camera name="camera" parent="${prefix}robot_base_link">
-            <origin rpy="0 ${pi/2} 0" xyz="0.7 0 1.0" />
+            <origin rpy="${pi} ${pi/2} 0" xyz="0.7 0 1.0" />
         </xacro:kinect_camera>
     </xacro:macro>
 </robot>
