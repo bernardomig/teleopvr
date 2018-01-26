@@ -6,8 +6,20 @@
     <xacro:property name="radius2" value="0.007" />
     <xacro:property name="hlength" value="0.050" />
     <xacro:macro name="teleopvr_gripper" params="prefix">
-        <link name="${prefix}base_link" />
-        <link name="${prefix}tool_tip"></link>
+        <link name="${prefix}base_link">
+            <visual>
+                <origin rpy="0 ${pi/2} 0" xyz="0 0 0" />
+                <geometry>
+                    <mesh filename="package://teleopvr_description/meshes/tool.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://teleopvr_description/meshes/tool.dae" />
+                </geometry>
+            </collision>
+        </link>
+        <link name="${prefix}tool_tip" />
         <joint name="${prefix}base_link-${prefix}tool_tip" type="fixed">
             <origin xyz="${length} 0 0" rpy="0 0 0" />
             <parent link="${prefix}base_link" />
