@@ -10,12 +10,12 @@
             <visual>
                 <origin rpy="0 ${pi/2} 0" xyz="0 0 0" />
                 <geometry>
-                    <mesh filename="package://teleopvr_description/meshes/tool.dae" />
+                    <mesh filename="package://teleopvr_gripper_description/meshes/tool.dae" />
                 </geometry>
             </visual>
             <collision>
                 <geometry>
-                    <mesh filename="package://teleopvr_description/meshes/tool.dae" />
+                    <mesh filename="package://teleopvr_gripper_description/meshes/tool.dae" />
                 </geometry>
             </collision>
         </link>
