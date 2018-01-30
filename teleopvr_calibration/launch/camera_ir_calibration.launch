@@ -1,0 +1,9 @@
+<launch>
+
+    <include file="$(find teleopvr_calibration)/launch/camera_calibration.launch">
+        <arg name="camera" value="camera/ir" />
+        <arg name="size" value="9x7" />
+        <arg name="len" value="0.100" />
+    </include>
+
+</launch>

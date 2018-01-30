@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="nodelet" type="nodelet" name="perception_manager_manager" args="manager" />
+
+    <node pkg="nodelet" type="nodelet" name="perception_xyzrgb_register"
+          args="load depth_image_proc/point_cloud_xyzrgb perception_manager_manager" >
+        <remap from="rgb/camera_info" to="camera/rgb/camera_info" />
+        <remap from="rgb/image_rect_color" to="camera/rgb/image_raw" />
+        <remap from="depth_registered/image_rect" to="camera/depth_registered/image_raw" />
+        <remap from="depth_registered/points" to="points" />
+    </node>
+
+</launch>

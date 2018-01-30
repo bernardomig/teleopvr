@@ -6,11 +6,14 @@
     <!-- include the kinetic xacro -->
     <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
     <xacro:include filename="$(find hector_sensors_description)/urdf/kinect_camera.urdf.xacro" />
+
     <!-- macro defining the whole robot -->
     <xacro:macro name="teleopvr" params="prefix">
         <xacro:teleopvr_manipulator prefix="${prefix}" />
         <xacro:kinect_camera name="camera" parent="${prefix}robot_base_link">
-            <origin rpy="${pi} ${pi/2} 0" xyz="0.7 0 1.0" />
+            <origin
+                xyz="0.72840281694 -0.249040209926 1.0"
+                rpy="${pi} ${pi/2} 0" />
         </xacro:kinect_camera>
     </xacro:macro>
 </robot>

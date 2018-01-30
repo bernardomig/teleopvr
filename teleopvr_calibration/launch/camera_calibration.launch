@@ -1,0 +1,15 @@
+<launch>
+
+    <arg name="size" />
+    <arg name="len" />
+    <arg name="camera" />
+
+    <include file="$(find openni_launch)/launch/openni.launch" />
+
+    <node pkg="camera_calibration" type="cameracalibrator.py" name="camera_calibrator"
+          args="--size $(arg size) --square $(arg len)">
+        <remap from="image" to="$(arg camera)/image_raw" />
+        <remap from="camera" to="$(arg camera)/rgb" />
+    </node>
+
+</launch>

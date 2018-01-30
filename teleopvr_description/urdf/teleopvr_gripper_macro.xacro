@@ -21,7 +21,7 @@
         </link>
         <link name="${prefix}tool_tip" />
         <joint name="${prefix}base_link-${prefix}tool_tip" type="fixed">
-            <origin xyz="${length} 0 0" rpy="0 0 0" />
+            <origin xyz="${length} 0 0" rpy="0 ${pi/2} 0" />
             <parent link="${prefix}base_link" />
             <child link="${prefix}tool_tip" />
         </joint>
