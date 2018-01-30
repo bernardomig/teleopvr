@@ -12,8 +12,8 @@
         <xacro:teleopvr_manipulator prefix="${prefix}" />
         <xacro:kinect_camera name="camera" parent="${prefix}robot_base_link">
             <origin
-                xyz="0.72840281694 -0.249040209926 1.0"
-                rpy="${pi} ${pi/2} 0" />
+                xyz="0.6530 -0.100319 0.99935548"
+                rpy="2.9330316  1.7627307 -0.1773132" />
         </xacro:kinect_camera>
     </xacro:macro>
 </robot>

@@ -84,6 +84,9 @@ while raw_input('') != 'y':
     R1 = tf.transformations.quaternion_matrix([R1.x, R1.y, R1.z, R1.w])
     R2 = tf.transformations.quaternion_matrix([R2.x, R2.y, R2.z, R2.w])
     T = T1.dot(R1).dot(T2).dot(R2)
+
+    print T
+
     Rot = tf.transformations.euler_from_matrix(T)
     Tr = tf.transformations.translation_from_matrix(T)
     rotations.append(Rot)
@@ -100,4 +103,4 @@ rotations = np.array(rotations).mean(axis=0)
 translations = np.array(translations).mean(axis=0)
 
 print 'xyz = ', translations
-print 'rpy = ', translations
+print 'rpy = ', rotations

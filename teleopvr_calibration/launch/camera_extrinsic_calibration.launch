@@ -3,15 +3,14 @@
     <!-- launch the kinetic -->
     <include file="$(find teleopvr_bringup)/launch/camera.launch"/>
     <!-- launch the aruco detection -->
-    <node pkg="aruco_detect" type="aruco_detect" name="aruco_detect"
-          output="log" >
-        <arg name="camera" value="/camera/rgb" />
-        <arg name="fiducial_len" value="0.035" />
+    <include file="$(find aruco_detect)/launch/aruco_detect.launch" >
+        <arg name="camera" value="camera/rgb" />
         <arg name="image" value="image_raw" />
-    </node>
+        <arg name="fiducial_len" value="0.035" />
+    </include>
     <!-- launch the robot stream interface -->
     <include file="$(find teleopvr_description)/launch/teleopvr.launch">
     </include>
     <!-- launch the calibrator node -->
-    <node pkg="teleopvr_calibration" type="client.py" name="calibration_node" />
+    <!-- <node pkg="teleopvr_calibration" type="client.py" name="calibration_node" /> -->
 </launch>

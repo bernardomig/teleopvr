@@ -30,12 +30,18 @@ rospy.sleep(1)
 
 group.set_planning_time(10)
 
+group.set_joint_value_target([0, 0, 0, 0, -pi / 2, 0])
+
+group.go()
+
+print group.get_current_pose()
+
 pose = geometry_msgs.msg.Pose()
 
 pose.orientation.x = 0.0
-pose.orientation.y = 0.70710428812
+pose.orientation.y = 1
 pose.orientation.z = 0.0
-pose.orientation.w = 0.70710428812
+pose.orientation.w = 0
 pose.position.x = 0.35
 pose.position.y = 0
 pose.position.z = 0
