@@ -34,8 +34,6 @@ group.set_joint_value_target([0, 0, 0, 0, -pi / 2, 0])
 
 group.go()
 
-print group.get_current_pose()
-
 pose = geometry_msgs.msg.Pose()
 
 pose.orientation.x = 0.0

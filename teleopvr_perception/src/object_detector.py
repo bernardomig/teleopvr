@@ -36,7 +36,7 @@ class ObjectDetectorNode:
         self.backgroundSegmentator = BackgroundSegmentator()
 
         self.objectDetector = ObjectDetector(
-            filters=[MinimumAreaFilter(300)])
+            filters=[MinimumAreaFilter(600)])
 
         self.objectTracker = ObjectTracker()
 
@@ -52,7 +52,9 @@ class ObjectDetectorNode:
 
         self.objectTracker.update()
 
-        self.publish_output_img(img)
+        out = self.cvbridge.cv2_to_imgmsg(fg, "mono8")
+
+        self.imagePublisher.publish(out)
 
     def publish_output_img(self, img):
         for i, detectedObject in enumerate(self.objectTracker.objects):

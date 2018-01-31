@@ -14,6 +14,7 @@ import numpy as np
 
 
 from visp_hand2eye_calibration.msg import TransformArray
+from visp_hand2eye_calibration.srv import compute_effector_camera, reset
 
 rospy.init_node('hand2eye_calibration_node')
 
@@ -24,10 +25,10 @@ tf_fid_broadcaster = tf2_ros.TransformBroadcaster()
 
 # rospy.sleep(1)
 
-# world_effector_pub = rospy.Publisher(
-#     'world_effector', geometry_msgs.msg.Transform, queue_size=1)
-# camera_object_pub = rospy.Publisher(
-#     'camera_object', geometry_msgs.msg.Transform, queue_size=1)
+world_effector_pub = rospy.Publisher(
+    'world_effector', geometry_msgs.msg.Transform, queue_size=1)
+camera_object_pub = rospy.Publisher(
+    'camera_object', geometry_msgs.msg.Transform, queue_size=1)
 
 # print tf_listener.lookupTransform('eef_tool_tip', 'robot_base_link', rospy.Time())
 
@@ -35,6 +36,9 @@ tf_fid_broadcaster = tf2_ros.TransformBroadcaster()
 
 
 def update_fid(msg):
+
+    if len(msg.transforms) != 1:
+        return
 
     fid_transform = msg.transforms[0].transform
 
@@ -65,15 +69,26 @@ translations = []
 while raw_input('') != 'y':
 
     robot = tfBuffer.lookup_transform(
-        'robot_base_link', 'eef_tool_tip', rospy.Time())
+        'eef_tool_tip',
+        'robot_base_link',
+        rospy.Time())
     fiducial = tfBuffer.lookup_transform(
-        'calibration_object', 'camera_link', rospy.Time())
+        'camera_link',
+        'calibration_object',
+        rospy.Time())
 
-    # world_effector_pub.publish(robot.transform)
-    # camera_object_pub.publish(fiducial.transform)
+    world_effector_pub.publish(robot.transform)
+    camera_object_pub.publish(fiducial.transform)
 
+    print '<saved state>'
+
+    print 'robot'
     print robot.transform
+    print 'fiducial'
     print fiducial.transform
+
+    # print robot.transform
+    # print fiducial.transform
 
     T1 = robot.transform.translation
     T2 = fiducial.transform.translation
@@ -87,7 +102,7 @@ while raw_input('') != 'y':
 
     print T
 
-    Rot = tf.transformations.euler_from_matrix(T)
+    Rot = tf.transformations.quaternion_from_matrix(T)
     Tr = tf.transformations.translation_from_matrix(T)
     rotations.append(Rot)
     translations.append(Tr)
@@ -99,8 +114,16 @@ print '======================'
 print 'Printing Final Results'
 print '======================'
 
-rotations = np.array(rotations).mean(axis=0)
-translations = np.array(translations).mean(axis=0)
+# rotations = np.array(rotations).mean(axis=0)
+# translations = np.array(translations).mean(axis=0)
 
-print 'xyz = ', translations
-print 'rpy = ', rotations
+# print 'xyz = ', translations
+# print 'rpy = ', rotations
+
+calibratorService = rospy.ServiceProxy(
+    'compute_effector_camera', compute_effector_camera)
+
+print calibratorService()
+
+resetService = rospy.ServiceProxy('reset', reset)
+resetService()
