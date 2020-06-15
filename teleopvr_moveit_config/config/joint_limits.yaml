@@ -4,31 +4,31 @@
 joint_limits:
   robot_joint_1:
     has_velocity_limits: true
-    max_velocity: 7.85
+    max_velocity: 2.8798
     has_acceleration_limits: false
     max_acceleration: 0
   robot_joint_2:
     has_velocity_limits: true
-    max_velocity: 6.63
+    max_velocity: 2.8798
     has_acceleration_limits: false
     max_acceleration: 0
   robot_joint_3:
     has_velocity_limits: true
-    max_velocity: 9.08
+    max_velocity: 3.0543
     has_acceleration_limits: false
     max_acceleration: 0
   robot_joint_4:
     has_velocity_limits: true
-    max_velocity: 9.6
+    max_velocity: 6.1087
     has_acceleration_limits: false
     max_acceleration: 0
   robot_joint_5:
     has_velocity_limits: true
-    max_velocity: 9.51
+    max_velocity: 5.9341
     has_acceleration_limits: false
     max_acceleration: 0
   robot_joint_6:
     has_velocity_limits: true
-    max_velocity: 17.45
+    max_velocity: 9.075699999999999
     has_acceleration_limits: false
     max_acceleration: 0

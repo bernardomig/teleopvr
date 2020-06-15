@@ -2,9 +2,10 @@ moveit_setup_assistant_config:
   URDF:
     package: teleopvr_description
     relative_path: urdf/teleopvr.xacro
+    xacro_args: ""
   SRDF:
     relative_path: config/teleopvr.srdf
   CONFIG:
-    author_name: Bernardo Lourenço
+    author_name: bernardo
     author_email: bernardo.lourenco@ua.pt
-    generated_timestamp: 1516994640
+    generated_timestamp: 1592220964

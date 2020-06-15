@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
-<robot 
-    xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
     <!-- xacro includes -->
     <!-- include lrmate200id robot -->
-    <xacro:include filename="$(find fanuc_lrmate200id_support)/urdf/lrmate200id_macro.xacro"/>
+    <xacro:include filename="$(find fanuc_m16ib_support)/urdf/m16ib20_macro.xacro"/>
     <!-- include end effector gripper -->
     <xacro:include filename="$(find teleopvr_gripper_description)/urdf/teleopvr_gripper_macro.xacro"/>
     <!-- manipulator macro -->
     <xacro:macro name="teleopvr_manipulator" params="prefix">
         <!-- lrmate200id robot -->
-        <xacro:fanuc_lrmate200id prefix="${prefix}robot_" />
+        <xacro:fanuc_m16ib20 prefix="${prefix}robot_" />
         <!-- end effector gripper -->
         <xacro:teleopvr_gripper prefix="${prefix}eef_" />
         <!-- joint connecting the lrmate200id to the end effector -->
